@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700&family=Saira+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#06080b}
+  input,button,textarea{font-family:inherit}
+  input::placeholder{color:#5c6773}
+  input:focus{outline:none;border-color:rgba(255,51,43,.6)!important}
+  ::selection{background:#ff332b;color:#fff}
+  @keyframes revealUp{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes revealFade{from{opacity:0}to{opacity:1}}
+  @keyframes slowZoom{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+  @keyframes pulseGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+  @keyframes glowBreath{0%,100%{opacity:.35}50%{opacity:.75}}
+  @keyframes ctaShine{0%{transform:translateX(-120%)}60%,100%{transform:translateX(220%)}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+  @keyframes eq{0%,100%{height:6px}50%{height:16px}}
+</style>
+</helmet>
+ 
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#06080b"/>
+    <rect x="60" y="92" width="80" height="24" rx="12" fill="#ff332b"/>
+    <rect x="86" y="60" width="28" height="28" rx="5" fill="none" stroke="#ff332b" stroke-width="3"/>
+    <rect x="94" y="68" width="12" height="12" rx="2" fill="#ff332b" transform="rotate(45 100 74)"/>
+  </svg>
+</template>
+ 
+<div style="background:#06080b;color:#eef2f5;font-family:'Saira',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+ 
+  <!-- HEADER -->
+  <header style="position:absolute;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:26px clamp(20px,5vw,64px)">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border:1.5px solid #ff332b;display:flex;align-items:center;justify-content:center;border-radius:5px;box-shadow:0 0 18px rgba(255,51,43,.4)">
+        <div style="width:9px;height:9px;background:#ff332b;transform:rotate(45deg);box-shadow:0 0 12px #ff332b"></div>
+      </div>
+    </div>
+    <nav style="display:flex;align-items:center;gap:clamp(16px,2.4vw,40px)">
+      <a href="#fahrzeug" style="color:#c4ccd4;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase">Fahrzeug</a>
+      <a href="#daten" style="color:#c4ccd4;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase">Technik</a>
+      <a href="#teilnehmen" style="display:inline-flex;align-items:center;gap:8px;background:#ff332b;color:#fff;text-decoration:none;font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;padding:11px 22px;border-radius:999px;box-shadow:0 0 26px rgba(255,51,43,.5)">Jetzt teilnehmen</a>
+    </nav>
+  </header>
+ 
+  <!-- HERO -->
+  <section style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:90px">
+    <video ref="{{ videoRef }}" loop playsinline poster="assets/hero-poster.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;animation:slowZoom 22s ease-in-out infinite alternate">
+      <source src="assets/huracan-hero.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,8,11,.55) 0%,rgba(6,8,11,.25) 40%,rgba(6,8,11,.6) 78%,#06080b 100%)"></div>
+    <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(115% 75% at 12% 60%,rgba(255,51,43,.2) 0%,transparent 52%);animation:glowBreath 6s ease-in-out infinite"></div>
+ 
+    <!-- SOUND TOGGLE -->
+    <button onClick="{{ toggleSound }}" style="position:absolute;top:96px;right:clamp(20px,5vw,64px);z-index:20;display:inline-flex;align-items:center;gap:11px;background:rgba(12,16,21,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;font-family:'Saira Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:999px;cursor:pointer">
+      <span style="display:flex;align-items:flex-end;gap:2.5px;height:16px">
+        <span ref="{{ eqRef1 }}" style="width:3px;height:6px;background:#ff332b;border-radius:2px"></span>
+        <span ref="{{ eqRef2 }}" style="width:3px;height:6px;background:#ff332b;border-radius:2px"></span>
+        <span ref="{{ eqRef3 }}" style="width:3px;height:6px;background:#ff332b;border-radius:2px"></span>
+      </span>
+      <span ref="{{ soundLabelRef }}">Ton an</span>
+    </button>
+ 
+    <div style="position:relative;z-index:2;width:100%;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,51,43,.5);background:rgba(255,51,43,.1);padding:7px 16px;border-radius:999px;margin-bottom:28px;backdrop-filter:blur(6px)">
+        <span style="width:7px;height:7px;border-radius:50%;background:#ff332b;box-shadow:0 0 12px #ff332b;animation:pulseGlow 1.6s infinite"></span>
+        <span style="font-family:'Saira Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.3em;color:#ffb0ab;text-transform:uppercase">Exklusives Gewinnspiel</span>
+      </div>
+      <h1 style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(36px,5.6vw,74px);line-height:1.0;letter-spacing:.005em;text-transform:uppercase;max-width:15ch;text-shadow:0 6px 50px rgba(0,0,0,.65)">Gewinne den <span style="color:#ff332b;text-shadow:0 0 50px rgba(255,51,43,.55)">Huracán Performante</span></h1>
+ 
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:26px;margin-top:clamp(34px,5vh,48px)">
+        <a href="#teilnehmen" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:12px;background:#ff332b;color:#fff;text-decoration:none;font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase;padding:18px 38px;border-radius:999px;box-shadow:0 0 44px rgba(255,51,43,.55)">
+          <span style="position:relative;z-index:1">Jetzt kostenlos teilnehmen</span>
+          <span style="position:relative;z-index:1;font-size:20px">→</span>
+          <span style="position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:ctaShine 3.4s ease-in-out infinite"></span>
+        </a>
+        <span style="font-family:'Saira Condensed',sans-serif;font-size:18px;font-weight:600;letter-spacing:.04em;color:#cdd5dc;text-transform:uppercase">640 PS · 100&nbsp;% kostenlos</span>
+      </div>
+ 
+      <!-- COUNTDOWN -->
+      <div style="margin-top:clamp(44px,7vh,80px);display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'Saira Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.28em;color:#8b97a3;text-transform:uppercase">Ziehung endet in</span>
+        <div style="display:flex;gap:clamp(10px,1.4vw,18px);align-items:flex-end">
+          <div style="text-align:center"><div ref="{{ dayRef }}" style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);line-height:1;color:#fff;font-variant-numeric:tabular-nums">--</div><div style="font-size:12px;letter-spacing:.2em;color:#8b97a3;margin-top:6px;font-weight:600">TAGE</div></div>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,56px);color:#ff332b;line-height:1.05;padding-bottom:18px">:</div>
+          <div style="text-align:center"><div ref="{{ hourRef }}" style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);line-height:1;color:#fff;font-variant-numeric:tabular-nums">--</div><div style="font-size:12px;letter-spacing:.2em;color:#8b97a3;margin-top:6px;font-weight:600">STD</div></div>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,56px);color:#ff332b;line-height:1.05;padding-bottom:18px">:</div>
+          <div style="text-align:center"><div ref="{{ minRef }}" style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);line-height:1;color:#fff;font-variant-numeric:tabular-nums">--</div><div style="font-size:12px;letter-spacing:.2em;color:#8b97a3;margin-top:6px;font-weight:600">MIN</div></div>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,56px);color:#ff332b;line-height:1.05;padding-bottom:18px">:</div>
+          <div style="text-align:center"><div ref="{{ secRef }}" style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);line-height:1;color:#ff332b;font-variant-numeric:tabular-nums;text-shadow:0 0 26px rgba(255,51,43,.55)">--</div><div style="font-size:12px;letter-spacing:.2em;color:#8b97a3;margin-top:6px;font-weight:600">SEK</div></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div style="position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2.2s ease-in-out infinite">
+      <span style="font-size:11px;letter-spacing:.24em;color:#7f8a94;font-weight:600;text-transform:uppercase">Scroll</span>
+      <span style="color:#ff332b;font-size:18px">↓</span>
+    </div>
+  </section>
+ 
+  <!-- VEHICLE INFO -->
+  <section id="fahrzeug" style="padding:clamp(64px,11vh,140px) clamp(20px,5vw,64px);position:relative">
+    <div style="max-width:1180px;margin:0 auto">
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;max-width:62ch;margin-bottom:clamp(40px,6vh,72px);opacity:0">
+        <span style="font-family:'Saira Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.28em;color:#ff332b;text-transform:uppercase">Über das Fahrzeug</span>
+        <h2 style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5.4vw,72px);line-height:.96;letter-spacing:.005em;text-transform:uppercase">Pure Rennstrecken-DNA<br>für die Straße.</h2>
+        <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.6;color:#aeb8c1;font-weight:500;margin-top:6px">Der Huracán Performante ist die kompromissloseste Ausbaustufe des V10-Supersportlers — mit aktiver Aerodynamik (ALA), Leichtbau aus Forged Composites und einem Sound, der unter die Haut geht. Genau dieses Fahrzeug verlosen wir an einen einzigen Gewinner.</p>
+      </div>
+ 
+      <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,3vw,48px);align-items:stretch">
+        <div data-reveal style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);min-height:340px;opacity:0">
+          <img src="assets/hero-poster.png" alt="Lamborghini Huracán Performante" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,rgba(6,8,11,.88) 100%)"></div>
+          <div style="position:absolute;left:24px;bottom:22px">
+            <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.01em;text-transform:uppercase">Huracán Performante</div>
+            <div style="color:#9aa4ad;font-size:14px;font-weight:600;margin-top:4px">5.2L V10 · LP 640-4 · Coupé</div>
+          </div>
+        </div>
+ 
+        <div data-reveal style="position:relative;overflow:hidden;background:linear-gradient(155deg,rgba(255,51,43,.16),rgba(255,51,43,.02));border:1px solid rgba(255,51,43,.34);border-radius:20px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;justify-content:center;gap:8px;opacity:0">
+          <span style="font-family:'Saira Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.24em;color:#ffb0ab;text-transform:uppercase">Fahrzeugwert</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(50px,7vw,88px);line-height:.92;color:#fff;text-shadow:0 0 44px rgba(255,51,43,.4)"><span data-count="280000" data-dec="0">280.000</span><span style="color:#ff332b;font-size:.5em;margin-left:8px">€</span></div>
+          <p style="color:#cdd5dc;font-size:15px;line-height:1.55;font-weight:500;margin-top:6px"><strong style="color:#fff">Keine Barauszahlung.</strong> Du gewinnst den echten Wagen — schlüsselfertig, zugelassen und versichert übergeben. Steuern und Überführung übernehmen wir.</p>
+        </div>
+      </div>
+ 
+      <!-- SPECS -->
+      <div id="daten" style="margin-top:clamp(20px,3vw,28px);display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,20px)">
+        <div data-reveal style="background:#0d1318;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:6px;opacity:0">
+          <span style="font-size:13px;font-weight:600;letter-spacing:.08em;color:#8b97a3;text-transform:uppercase">Leistung</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(38px,4vw,52px);line-height:1;color:#fff"><span data-count="640" data-dec="0">640</span><span style="font-size:.42em;color:#ff332b;margin-left:6px;font-weight:700">PS</span></div>
+        </div>
+        <div data-reveal style="background:#0d1318;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:6px;opacity:0">
+          <span style="font-size:13px;font-weight:600;letter-spacing:.08em;color:#8b97a3;text-transform:uppercase">0–100 km/h</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(38px,4vw,52px);line-height:1;color:#fff"><span data-count="2.9" data-dec="1">2,9</span><span style="font-size:.42em;color:#ff332b;margin-left:6px;font-weight:700">s</span></div>
+        </div>
+        <div data-reveal style="background:#0d1318;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:6px;opacity:0">
+          <span style="font-size:13px;font-weight:600;letter-spacing:.08em;color:#8b97a3;text-transform:uppercase">V-max</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(38px,4vw,52px);line-height:1;color:#fff"><span data-count="325" data-dec="0">325</span><span style="font-size:.42em;color:#ff332b;margin-left:6px;font-weight:700">km/h</span></div>
+        </div>
+        <div data-reveal style="background:#0d1318;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:6px;opacity:0">
+          <span style="font-size:13px;font-weight:600;letter-spacing:.08em;color:#8b97a3;text-transform:uppercase">Hubraum</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(38px,4vw,52px);line-height:1;color:#fff"><span data-count="5.2" data-dec="1">5,2</span><span style="font-size:.42em;color:#ff332b;margin-left:6px;font-weight:700">L V10</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FAHRZEUGDATEN -->
+  <section id="karosserie" style="padding:clamp(64px,11vh,140px) clamp(20px,5vw,64px);position:relative;background:linear-gradient(180deg,#06080b 0%,#080b11 50%,#06080b 100%)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;max-width:62ch;margin-bottom:clamp(30px,4.5vh,52px);opacity:0">
+        <span style="font-family:'Saira Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.28em;color:#ff332b;text-transform:uppercase">Technische Daten</span>
+        <h2 style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5.4vw,72px);line-height:.96;letter-spacing:.005em;text-transform:uppercase">Daten, die<br>unter die Haut gehen.</h2>
+        <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.6;color:#aeb8c1;font-weight:500;margin-top:6px">5.2 Liter Saugmotor, zehn Zylinder, kompromisslose Aerodynamik. Das ist der Huracán Performante — und genau dieses Fahrzeug verlosen wir.</p>
+      </div>
+ 
+      <!-- Showcase image -->
+      <div data-reveal style="opacity:0;position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:0 44px 100px rgba(0,0,0,.55)">
+        <img src="assets/huracan-detail.png" alt="Lamborghini Huracán Performante bei Nacht" style="display:block;width:100%;aspect-ratio:16/8.4;object-fit:cover;object-position:center 42%" />
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,11,.18) 0%,transparent 30%,transparent 55%,rgba(6,8,11,.88) 100%);pointer-events:none"></div>
+        <div style="position:absolute;left:clamp(20px,3vw,40px);bottom:clamp(20px,3vw,34px);display:flex;flex-direction:column;gap:4px">
+          <span style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,34px);text-transform:uppercase;letter-spacing:.01em;line-height:1">Huracán Performante</span>
+          <span style="color:#aeb8c1;font-size:14px;font-weight:600;letter-spacing:.04em">LP 640-4 · Coupé · Baujahr 2023</span>
+        </div>
+        <div style="position:absolute;right:clamp(20px,3vw,40px);bottom:clamp(20px,3vw,34px);text-align:right;display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'Saira Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.22em;color:#ffb0ab;text-transform:uppercase">Fahrzeugwert</span>
+          <span style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,46px);line-height:1;text-shadow:0 0 30px rgba(255,51,43,.4)">280.000 <span style="color:#ff332b">€</span></span>
+        </div>
+      </div>
+ 
+      <!-- Hero stats -->
+      <div style="margin-top:clamp(18px,2.4vw,26px);background:#0c1117;border:1px solid rgba(255,255,255,.08);border-radius:20px;display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden">
+        <div data-reveal style="padding:clamp(24px,2.8vw,36px);display:flex;flex-direction:column;gap:6px;border-right:1px solid rgba(255,255,255,.07);opacity:0">
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.1em;color:#8b97a3;text-transform:uppercase">Leistung</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(36px,4vw,54px);line-height:1;color:#fff"><span data-count="640" data-dec="0">640</span><span style="font-size:.4em;color:#ff332b;margin-left:6px;font-weight:700">PS</span></div>
+        </div>
+        <div data-reveal style="padding:clamp(24px,2.8vw,36px);display:flex;flex-direction:column;gap:6px;border-right:1px solid rgba(255,255,255,.07);opacity:0">
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.1em;color:#8b97a3;text-transform:uppercase">0–100 km/h</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(36px,4vw,54px);line-height:1;color:#fff"><span data-count="2.9" data-dec="1">2,9</span><span style="font-size:.4em;color:#ff332b;margin-left:6px;font-weight:700">s</span></div>
+        </div>
+        <div data-reveal style="padding:clamp(24px,2.8vw,36px);display:flex;flex-direction:column;gap:6px;border-right:1px solid rgba(255,255,255,.07);opacity:0">
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.1em;color:#8b97a3;text-transform:uppercase">V-max</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(36px,4vw,54px);line-height:1;color:#fff"><span data-count="325" data-dec="0">325</span><span style="font-size:.4em;color:#ff332b;margin-left:6px;font-weight:700">km/h</span></div>
+        </div>
+        <div data-reveal style="padding:clamp(24px,2.8vw,36px);display:flex;flex-direction:column;gap:6px;opacity:0">
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.1em;color:#8b97a3;text-transform:uppercase">Drehmoment</span>
+          <div style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(36px,4vw,54px);line-height:1;color:#fff"><span data-count="600" data-dec="0">600</span><span style="font-size:.4em;color:#ff332b;margin-left:6px;font-weight:700">Nm</span></div>
+        </div>
+      </div>
+ 
+      <!-- Spec sheet -->
+      <div data-reveal style="margin-top:clamp(28px,4vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(36px,6vw,80px);opacity:0">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Motor</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">5,2 L V10 Saugmotor</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Max. Drehzahl</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">8.000 U/min</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Getriebe</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">7-Gang LDF Doppelkupplung</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Antrieb</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">Allradantrieb</span>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Leergewicht</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">1.382 kg (trocken)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Leistungsgewicht</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">2,16 kg / PS</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Aerodynamik</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">ALA — aktiv verstellbar</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.09)">
+            <span style="font-size:14px;font-weight:600;letter-spacing:.06em;color:#8b97a3;text-transform:uppercase">Karosserie</span>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;text-align:right">Forged Composites</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FORM -->
+  <section id="teilnehmen" style="padding:clamp(40px,6vh,80px) clamp(20px,5vw,64px) clamp(72px,10vh,120px);position:relative">
+    <div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 0%,rgba(255,51,43,.12) 0%,transparent 60%);pointer-events:none;animation:glowBreath 7s ease-in-out infinite"></div>
+    <div style="position:relative;max-width:760px;margin:0 auto">
+      <div data-reveal style="text-align:center;margin-bottom:clamp(30px,4vh,48px);display:flex;flex-direction:column;gap:14px;align-items:center;opacity:0">
+        <span style="font-family:'Saira Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.28em;color:#ff332b;text-transform:uppercase">Mitmachen & gewinnen</span>
+        <h2 style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5.4vw,68px);line-height:.96;letter-spacing:.005em;text-transform:uppercase">Sichere dir deine Teilnahme</h2>
+        <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.55;color:#aeb8c1;font-weight:500;max-width:48ch">Die Teilnahme ist <strong style="color:#fff">100&nbsp;% kostenlos</strong>. Fülle das Formular aus und du bist im Lostopf für den Huracán Performante.</p>
+      </div>
+ 
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="background:linear-gradient(155deg,rgba(255,51,43,.18),rgba(255,51,43,.03));border:1px solid rgba(255,51,43,.45);border-radius:24px;padding:clamp(36px,5vw,60px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;animation:revealUp .7s cubic-bezier(.2,.7,.2,1) both">
+          <div style="width:74px;height:74px;border-radius:50%;background:#ff332b;display:flex;align-items:center;justify-content:center;box-shadow:0 0 44px rgba(255,51,43,.55)">
+            <span style="color:#fff;font-size:38px;font-weight:800;line-height:1">✓</span>
+          </div>
+          <h3 style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:clamp(30px,4vw,46px);text-transform:uppercase">Du bist dabei! 🏁</h3>
+          <p style="color:#cdd5dc;font-size:17px;line-height:1.55;max-width:42ch">Deine Lose sind reserviert. Wir haben dir eine Bestätigung per E-Mail geschickt. Daumen drücken — die Ziehung steht kurz bevor!</p>
+        </div>
+      </sc-if>
+ 
+      <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" data-reveal style="background:#0b1117;border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:clamp(24px,3.4vw,44px);display:flex;flex-direction:column;gap:20px;opacity:0">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">Vorname</span>
+            <input value="{{ form.vorname }}" onChange="{{ onVorname }}" required placeholder="Max" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">Nachname</span>
+            <input value="{{ form.nachname }}" onChange="{{ onNachname }}" required placeholder="Mustermann" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">E-Mail</span>
+            <input value="{{ form.email }}" onChange="{{ onEmail }}" type="email" required placeholder="max@beispiel.de" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">Telefon</span>
+            <input value="{{ form.tel }}" onChange="{{ onTel }}" type="tel" placeholder="+49 170 1234567" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+          </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">Straße & Hausnummer</span>
+          <input value="{{ form.strasse }}" onChange="{{ onStrasse }}" placeholder="Musterstraße 1" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+        </label>
+        <div style="display:grid;grid-template-columns:.8fr 1.2fr;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">PLZ</span>
+            <input value="{{ form.plz }}" onChange="{{ onPlz }}" placeholder="33129" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;color:#bcc6cf;letter-spacing:.02em">Ort</span>
+            <input value="{{ form.ort }}" onChange="{{ onOrt }}" placeholder="Delbrück" style="background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#fff;font-size:15.5px;font-weight:500" />
+          </label>
+        </div>
+ 
+        <!-- Lose stepper -->
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:#070b0f;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 18px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14.5px;font-weight:700;color:#fff">Anzahl Gratis-Lose</span>
+            <span style="font-size:12.5px;color:#8b97a3;font-weight:500">Mehr Lose = höhere Gewinnchance</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <button type="button" onClick="{{ losMinus }}" style="width:42px;height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:#11181f;color:#fff;font-size:22px;font-weight:700;cursor:pointer;line-height:1">−</button>
+            <span style="font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:30px;min-width:42px;text-align:center;color:#ff332b;font-variant-numeric:tabular-nums">{{ form.lose }}</span>
+            <button type="button" onClick="{{ losPlus }}" style="width:42px;height:42px;border-radius:11px;border:1px solid rgba(255,51,43,.45);background:rgba(255,51,43,.16);color:#ff6b64;font-size:22px;font-weight:700;cursor:pointer;line-height:1">+</button>
+          </div>
+        </div>
+ 
+        <!-- Checkboxes -->
+        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer">
+          <input type="checkbox" checked="{{ form.agb }}" onChange="{{ onAgb }}" style="width:20px;height:20px;margin-top:2px;accent-color:#ff332b;flex-shrink:0;cursor:pointer" />
+          <span style="font-size:13.5px;color:#aeb8c1;line-height:1.5;font-weight:500">Ich akzeptiere die <a href="#" style="color:#ff6b64;text-decoration:none">Teilnahmebedingungen</a> und die <a href="#" style="color:#ff6b64;text-decoration:none">Datenschutzerklärung</a>. *</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer">
+          <input type="checkbox" checked="{{ form.news }}" onChange="{{ onNews }}" style="width:20px;height:20px;margin-top:2px;accent-color:#ff332b;flex-shrink:0;cursor:pointer" />
+          <span style="font-size:13.5px;color:#aeb8c1;line-height:1.5;font-weight:500">Ja, ich möchte den Newsletter mit exklusiven Gewinnspielen erhalten (jederzeit abbestellbar).</span>
+        </label>
+ 
+        <button type="submit" style="margin-top:6px;background:#ff332b;color:#fff;border:none;font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:19px;letter-spacing:.06em;text-transform:uppercase;padding:18px;border-radius:14px;cursor:pointer;box-shadow:0 0 44px rgba(255,51,43,.45)">Jetzt kostenlos teilnehmen →</button>
+        <p style="text-align:center;font-size:12.5px;color:#6f7a84;font-weight:500">🔒 Deine Daten werden verschlüsselt übertragen und nicht an Dritte weitergegeben.</p>
+      </form>
+      </sc-if>
+    </div>
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid rgba(255,255,255,.07);padding:40px clamp(20px,5vw,64px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:28px;height:28px;border:1.5px solid #ff332b;display:flex;align-items:center;justify-content:center;border-radius:4px">
+        <div style="width:7px;height:7px;background:#ff332b;transform:rotate(45deg)"></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <a href="#" style="color:#8b97a3;text-decoration:none;font-size:13.5px;font-weight:600">Impressum</a>
+      <a href="#" style="color:#8b97a3;text-decoration:none;font-size:13.5px;font-weight:600">Datenschutz</a>
+      <a href="#" style="color:#8b97a3;text-decoration:none;font-size:13.5px;font-weight:600">Teilnahmebedingungen</a>
+    </div>
+    <span style="color:#5c6773;font-size:12.5px;font-weight:500">© 2026 · Alle Angaben ohne Gewähr</span>
+  </footer>
+ 
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    submitted: false,
+    form: { vorname:'', nachname:'', email:'', tel:'', strasse:'', plz:'', ort:'', lose:1, agb:false, news:true }
+  };
+ 
+  componentDidMount(){
+    // Countdown
+    this.target = new Date('2026-07-31T20:00:00').getTime();
+    this.tick();
+    this.timer = setInterval(() => this.tick(), 1000);
+ 
+    // Equalizer animation loop (runs only when sound on)
+    this._eqOn = false;
+ 
+    // Scroll reveal
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if(en.isIntersecting){
+          en.target.style.animation = 'revealUp .85s cubic-bezier(.2,.7,.2,1) both';
+          const cnt = en.target.querySelector('[data-count]');
+          if(cnt && !cnt._done){ cnt._done = true; this.countUp(cnt); }
+          this._io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    setTimeout(() => {
+      document.querySelectorAll('[data-reveal]').forEach(el => this._io.observe(el));
+    }, 60);
+  }
+ 
+  componentWillUnmount(){
+    clearInterval(this.timer);
+    if(this._io) this._io.disconnect();
+    if(this._eqRaf) cancelAnimationFrame(this._eqRaf);
+  }
+ 
+  tick(){
+    let diff = Math.max(0, this.target - Date.now());
+    const day = Math.floor(diff/86400000); diff -= day*86400000;
+    const hr = Math.floor(diff/3600000); diff -= hr*3600000;
+    const mn = Math.floor(diff/60000); diff -= mn*60000;
+    const sc = Math.floor(diff/1000);
+    const pad = n => String(n).padStart(2,'0');
+    if(this._day) this._day.textContent = pad(day);
+    if(this._hour) this._hour.textContent = pad(hr);
+    if(this._min) this._min.textContent = pad(mn);
+    if(this._sec) this._sec.textContent = pad(sc);
+  }
+ 
+  countUp(el){
+    const end = parseFloat(el.getAttribute('data-count'));
+    const dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+    const dur = 1400;
+    const t0 = performance.now();
+    const fmt = v => {
+      const s = v.toFixed(dec);
+      const parts = s.split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return parts.join(',');
+    };
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(end * eased);
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(end);
+    };
+    requestAnimationFrame(step);
+  }
+ 
+  animateEq(){
+    if(!this._eqOn){ return; }
+    const bars = [this._eq1, this._eq2, this._eq3];
+    bars.forEach(b => { if(b){ b.style.height = (5 + Math.random()*13).toFixed(0) + 'px'; b.style.transition = 'height .14s ease'; } });
+    this._eqRaf = setTimeout(() => requestAnimationFrame(() => this.animateEq()), 130);
+  }
+ 
+  ensureAudio(){
+    if(this._actx || !this._video) return;
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if(!Ctx) return;
+      this._actx = new Ctx();
+      this._src = this._actx.createMediaElementSource(this._video);
+      this._gain = this._actx.createGain();
+      this._gain.gain.value = 6.0; // strong boost well beyond 100%
+      this._src.connect(this._gain).connect(this._actx.destination);
+    } catch(e){ /* fallback to element volume */ }
+  }
+ 
+  set(name, val){ this.setState(s => ({ form: { ...s.form, [name]: val } })); }
+ 
+  renderVals(){
+    const f = this.state.form;
+    const txt = name => e => this.set(name, e.target.value);
+    return {
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      form: f,
+      videoRef: el => {
+        this._video = el;
+        if(el){ el.muted = true; el.loop = true; el.playsInline = true; el.setAttribute('playsinline',''); const p = el.play(); if(p && p.catch) p.catch(()=>{}); }
+      },
+      dayRef: el => { this._day = el; },
+      hourRef: el => { this._hour = el; },
+      minRef: el => { this._min = el; },
+      secRef: el => { this._sec = el; },
+      eqRef1: el => { this._eq1 = el; },
+      eqRef2: el => { this._eq2 = el; },
+      eqRef3: el => { this._eq3 = el; },
+      soundLabelRef: el => { this._soundLabel = el; },
+      toggleSound: () => {
+        if(!this._video) return;
+        const turningOn = this._video.muted;
+        this._video.muted = !turningOn ? true : false;
+        if(turningOn){
+          this.ensureAudio();
+          if(this._actx && this._actx.state === 'suspended'){ this._actx.resume().catch(()=>{}); }
+          this._video.muted = false;
+          this._video.volume = 1.0;
+          const p = this._video.play(); if(p && p.catch) p.catch(()=>{});
+          if(this._soundLabel) this._soundLabel.textContent = 'Ton aus';
+          this._eqOn = true; this.animateEq();
+        } else {
+          this._video.muted = true;
+          if(this._soundLabel) this._soundLabel.textContent = 'Ton an';
+          this._eqOn = false;
+          if(this._eqRaf) clearTimeout(this._eqRaf);
+          [this._eq1,this._eq2,this._eq3].forEach(b => { if(b){ b.style.height = '6px'; } });
+        }
+      },
+      onVorname: txt('vorname'),
+      onNachname: txt('nachname'),
+      onEmail: txt('email'),
+      onTel: txt('tel'),
+      onStrasse: txt('strasse'),
+      onPlz: txt('plz'),
+      onOrt: txt('ort'),
+      onAgb: e => this.set('agb', e.target.checked),
+      onNews: e => this.set('news', e.target.checked),
+      losMinus: () => this.set('lose', Math.max(1, this.state.form.lose - 1)),
+      losPlus: () => this.set('lose', Math.min(50, this.state.form.lose + 1)),
+      onSubmit: e => {
+        e.preventDefault();
+        if(!this.state.form.agb){ alert('Bitte akzeptiere die Teilnahmebedingungen.'); return; }
+        this.setState({ submitted: true });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
